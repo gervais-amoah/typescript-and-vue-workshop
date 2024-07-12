@@ -5,12 +5,6 @@ import DishCard from '../components/DishCard.vue'
 import NewDishForm from '../components/NewDishForm.vue'
 import SideMenu from '../components/SideMenu.vue'
 
-type DataShape = {
-  filterText: string
-  dishList: Dish[]
-  showNewForm: boolean
-}
-
 export default defineComponent({
   components: {
     NewDishForm,
