@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Restaurant } from '@/types'
-import { defineComponent, PropType } from 'vue'
+import { type Restaurant } from '@/types'
+import { defineComponent, type PropType } from 'vue'
 
 export default defineComponent({
   props: {

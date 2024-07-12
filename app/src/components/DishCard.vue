@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Dish } from '@/types'
+import { type Dish } from '@/types'
 import { defineComponent, type PropType } from 'vue'
 
 export default defineComponent({
