@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Dish } from '@/types'
-import { defineComponent } from 'vue'
+import { type Dish } from '@/types'
+import { computed, defineComponent, ref } from 'vue'
 import DishCard from '../components/DishCard.vue'
 import NewDishForm from '../components/NewDishForm.vue'
 import SideMenu from '../components/SideMenu.vue'
@@ -17,9 +17,10 @@ export default defineComponent({
     DishCard,
     SideMenu,
   },
-  data: (): DataShape => ({
-    filterText: '',
-    dishList: [
+
+  setup() {
+    const filterText = ref('')
+    const dishList = ref<Dish[]>([
       {
         id: '7d9f3f17-964a-4e82-98e5-ecbba4d709a1',
         name: 'Ghost Pepper Poppers',
@@ -35,37 +36,49 @@ export default defineComponent({
         name: 'Full Laptop Battery',
         status: 'Do Not Recommend',
       },
-    ],
-    showNewForm: false,
-  }),
-  computed: {
-    filteredDishList(): Dish[] {
-      return this.dishList.filter((dish) => {
+    ])
+    const showNewForm = ref(false)
+
+    const filteredDishList = computed((): Dish[] => {
+      return dishList.value.filter((dish) => {
         if (dish.name) {
-          return dish.name.toLowerCase().includes(this.filterText.toLowerCase())
+          return dish.name.toLowerCase().includes(filterText.value.toLowerCase())
         } else {
-          return this.dishList
+          return dishList
         }
       })
-    },
-    numberOfDishes() {
-      return this.filteredDishList.length
-    },
-  },
-  methods: {
-    addDish(payload: Dish) {
-      this.dishList.push(payload)
-      this.hideForm()
-    },
-    deleteDish(payload: Dish) {
-      this.dishList = this.dishList.filter((dish) => {
+    })
+    const numberOfDishes = computed(() => {
+      return filteredDishList.value.length
+    })
+
+    const addDish = (payload: Dish) => {
+      dishList.value.push(payload)
+      hideForm()
+    }
+    const deleteDish = (payload: Dish) => {
+      dishList.value = dishList.value.filter((dish) => {
         return dish.id !== payload.id
       })
-    },
-    hideForm() {
-      this.showNewForm = false
-    },
+    }
+    const hideForm = () => {
+      showNewForm.value = false
+    }
+
+    return {
+      dishList,
+      filterText,
+      showNewForm,
+
+      numberOfDishes,
+      filteredDishList,
+
+      addDish,
+      hideForm,
+      deleteDish,
+    }
   },
+
   mounted() {
     const route = this.$route
     if (route.query.new) {
