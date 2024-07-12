@@ -1,9 +1,10 @@
 <script lang="ts">
 import { type Dish } from '@/types'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import DishCard from '../components/DishCard.vue'
 import NewDishForm from '../components/NewDishForm.vue'
 import SideMenu from '../components/SideMenu.vue'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -59,6 +60,13 @@ export default defineComponent({
       showNewForm.value = false
     }
 
+    onMounted(() => {
+      const route = useRoute()
+      if (route.query.new) {
+        showNewForm.value = true
+      }
+    })
+
     return {
       dishList,
       filterText,
@@ -70,13 +78,6 @@ export default defineComponent({
       addDish,
       hideForm,
       deleteDish,
-    }
-  },
-
-  mounted() {
-    const route = this.$route
-    if (route.query.new) {
-      this.showNewForm = true
     }
   },
 })
