@@ -1,9 +1,9 @@
 <script lang="ts">
 import type { Restaurant } from '@/types'
+import { defineComponent } from 'vue'
 import NewRestaurantForm from '../components/NewRestaurantForm.vue'
 import RestaurantCard from '../components/RestaurantCard.vue'
 import SideMenu from '../components/SideMenu.vue'
-import { defineComponent } from 'vue'
 
 type DataShape = {
   filterText: string

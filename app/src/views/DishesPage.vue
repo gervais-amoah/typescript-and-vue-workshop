@@ -1,9 +1,9 @@
 <script lang="ts">
-import NewDishForm from '../components/NewDishForm.vue'
-import DishCard from '../components/DishCard.vue'
-import SideMenu from '../components/SideMenu.vue'
-import { defineComponent } from 'vue'
 import { Dish } from '@/types'
+import { defineComponent } from 'vue'
+import DishCard from '../components/DishCard.vue'
+import NewDishForm from '../components/NewDishForm.vue'
+import SideMenu from '../components/SideMenu.vue'
 
 type DataShape = {
   filterText: string
@@ -17,7 +17,7 @@ export default defineComponent({
     DishCard,
     SideMenu,
   },
-  data: () => ({
+  data: (): DataShape => ({
     filterText: '',
     dishList: [
       {
